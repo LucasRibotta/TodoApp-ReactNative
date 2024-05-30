@@ -38,10 +38,8 @@ function UpdateFormComponent() {
   }, [todo]);
 
   const updateTodo = async () => {
-    if (description.length > 100) {
-      setDescriptionError(
-        "La descripcion no puede exceder los 300 caracteres."
-      );
+    if (description.length > 300) {
+      setDescriptionError("Description cannot exceed 300 characters.");
       return;
     }
     const updatedTodo = {
@@ -55,7 +53,7 @@ function UpdateFormComponent() {
       );
       await AsyncStorage.setItem("@Todos", JSON.stringify(updatedListTodos));
       dispatch(updateTodoListReducer(updatedTodo));
-      console.log("Todo actualizado correctamente");
+      console.log("Todo updated successfully");
       navigation.goBack();
     } catch (error) {
       console.error(error);
@@ -76,36 +74,36 @@ function UpdateFormComponent() {
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <MaterialIcons name="arrow-back" size={24} />
         </TouchableOpacity>
-        <Text style={styles.title}>Actualizar tarea</Text>
+        <Text style={styles.title}>Update task</Text>
       </View>
 
       <View style={styles.inputContainer}>
-        <Text style={styles.inputTitle}>Titulo:</Text>
+        <Text style={styles.inputTitle}>Title:</Text>
         <TextInput
           style={styles.textInput}
-          placeholder="Añadir titulo..."
+          placeholder="Add title..."
+          numberOfLines={2}
+          maxLength={100}
           placeholderTextColor="#00000030"
           onChangeText={(text) => setTitle(text)}
           value={title}
         />
       </View>
       <View style={styles.inputContainer}>
-        <Text style={styles.inputTitle}>Descripción:</Text>
+        <Text style={styles.inputTitle}>Description:</Text>
         <TextInput
           editable
           multiline
           numberOfLines={4}
-          maxLength={100}
-          placeholder="Añadir descripción..."
+          maxLength={300}
+          placeholder="Add description..."
           placeholderTextColor="#00000030"
           onChangeText={(text) => {
-            if (text.length <= 100) {
+            if (text.length <= 300) {
               setDescription(text);
               setDescriptionError("");
             } else {
-              setDescriptionError(
-                "La descripción no puede exceder los 300 caracteres."
-              );
+              setDescriptionError("Description cannot exceed 300 characters.");
             }
           }}
           value={description}
@@ -167,6 +165,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     flexDirection: "column",
     paddingVertical: 20,
+
     gap: 10,
   },
   button: {

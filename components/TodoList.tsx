@@ -1,4 +1,4 @@
-import { FlatList } from "react-native";
+import { View } from "react-native";
 import { CardTodo } from "./CardTodo";
 import { TodoInfo } from "../models";
 
@@ -8,11 +8,11 @@ interface Props {
 
 function TodoList({ todosData }: Props) {
   return (
-    <FlatList
-      data={todosData}
-      keyExtractor={(item) => item.id.toString()}
-      renderItem={({ item }) => <CardTodo {...item} />}
-    />
+    <View>
+      {todosData.map((item) => (
+        <CardTodo key={item.id} {...item} />
+      ))}
+    </View>
   );
 }
 

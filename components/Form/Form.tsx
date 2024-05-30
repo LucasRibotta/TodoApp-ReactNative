@@ -22,10 +22,8 @@ function FormComponent() {
   const navigation = useNavigation();
 
   const addTodo = async () => {
-    if (description.length > 100) {
-      setDescriptionError(
-        "La descripcion no puede exceder los 300 caracteres."
-      );
+    if (description.length > 300) {
+      setDescriptionError("Description cannot exceed 300 characters.");
       return;
     }
     const newTodo = {
@@ -40,7 +38,7 @@ function FormComponent() {
         JSON.stringify([...listTodos, newTodo])
       );
       dispatch(addTodosReducer(newTodo));
-      console.log("Todos agregado correctamente");
+      console.log("All added correctly");
       navigation.goBack();
     } catch (error) {
       console.error(error);
@@ -61,15 +59,15 @@ function FormComponent() {
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <MaterialIcons name="arrow-back" size={24} />
         </TouchableOpacity>
-        <Text style={styles.title}>Añadir nueva tarea</Text>
+        <Text style={styles.title}>Add new task</Text>
       </View>
       <View style={styles.inputContainer}>
-        <Text style={styles.inputTitle}>Titulo:</Text>
+        <Text style={styles.inputTitle}>Title:</Text>
         <TextInput
           style={styles.textInput}
           numberOfLines={2}
-          maxLength={20}
-          placeholder="Añadir titulo..."
+          maxLength={100}
+          placeholder="Add title..."
           placeholderTextColor="#00000030"
           onChangeText={(text) => {
             setName(text);
@@ -77,22 +75,20 @@ function FormComponent() {
         />
       </View>
       <View style={styles.inputContainer}>
-        <Text style={styles.inputTitle}>Descripción:</Text>
+        <Text style={styles.inputTitle}>Description:</Text>
         <TextInput
           editable
           multiline
           numberOfLines={4}
-          maxLength={100}
-          placeholder="Añadir descripción..."
+          maxLength={300}
+          placeholder="Add description..."
           placeholderTextColor="#00000030"
           onChangeText={(text) => {
-            if (text.length <= 100) {
+            if (text.length <= 300) {
               setDescription(text);
               setDescriptionError("");
             } else {
-              setDescriptionError(
-                "La descripción no puede exceder los 300 caracteres."
-              );
+              setDescriptionError("Description cannot exceed 300 characters.");
             }
           }}
           value={description}

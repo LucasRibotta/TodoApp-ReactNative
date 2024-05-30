@@ -1,4 +1,11 @@
-import { View, TouchableOpacity, StyleSheet, Image, Text } from "react-native";
+import {
+  View,
+  TouchableOpacity,
+  StyleSheet,
+  Image,
+  Text,
+  ScrollView,
+} from "react-native";
 import { TodoList } from "../components";
 import { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -46,18 +53,19 @@ function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      <Image
-        source={{
-          uri: "https://i.pinimg.com/564x/0d/98/b2/0d98b2916254548f2c79a57eb8768969.jpg",
-        }}
-        style={styles.pic}
-      />
-      <SearchBar />
-      <View style={styles.containerTitle}>
-        <Text style={styles.title}>Lista de tareas</Text>
-      </View>
+      <ScrollView>
+        <Image
+          source={{
+            uri: "https://i.pinimg.com/564x/0d/98/b2/0d98b2916254548f2c79a57eb8768969.jpg",
+          }}
+          style={styles.pic}
+        />
+        <SearchBar />
+        <View style={styles.containerTitle}>
+          <Text style={styles.title}>Todo App</Text>
+        </View>
 
-      {/* 
+        {/* 
       Funcionalidad de filtrado comentada, es un button text que permite filtrar por tareas completadas.
       Por estetica decidi implementar un filtrado diferente entre tareas completadas y pendientes.
       <View style={styles.containerFilter}>
@@ -67,20 +75,36 @@ function HomeScreen() {
           </Text>
         </TouchableOpacity>
       </View> */}
-      <View style={{ flexDirection: "column", gap: 8 }}>
-        <Text style={styles.titleList}>Pendientes</Text>
-        <TodoList todosData={todos.filter((todo) => !todo.isCompleted)} />
-      </View>
-      <View style={{ flexDirection: "column", gap: 8 }}>
-        <Text style={styles.titleList}>Completadas</Text>
-        <TodoList todosData={todos.filter((todo) => todo.isCompleted)} />
-      </View>
-      <TouchableOpacity
-        onPress={() => navigation.navigate("Add")}
-        style={styles.button}
-      >
-        <MaterialIcons name="add" size={36} color="#FFF" style={styles.icon} />
-      </TouchableOpacity>
+        <View style={{ gap: 12, height: "100%" }}>
+          <View style={{ flexDirection: "column", gap: 8 }}>
+            <Text style={styles.titleList}>Pending tasks</Text>
+            {todos.length > 0 ? (
+              <TodoList todosData={todos.filter((todo) => !todo.isCompleted)} />
+            ) : (
+              <Text style={styles.noTask}>There are no pending tasks...</Text>
+            )}
+          </View>
+          <View style={{ flexDirection: "column", gap: 8 }}>
+            <Text style={styles.titleList}>Completed tasks</Text>
+            {todos.length > 0 ? (
+              <TodoList todosData={todos.filter((todo) => todo.isCompleted)} />
+            ) : (
+              <Text style={styles.noTask}>There are no completed tasks...</Text>
+            )}
+          </View>
+        </View>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("Add")}
+          style={styles.button}
+        >
+          <MaterialIcons
+            name="add"
+            size={36}
+            color="#FFF"
+            style={styles.icon}
+          />
+        </TouchableOpacity>
+      </ScrollView>
     </View>
   );
 }
@@ -93,6 +117,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     paddingTop: 40,
     backgroundColor: "#F1ECEA30",
+    height: "auto",
   },
   pic: {
     width: 80,
@@ -125,6 +150,11 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
   },
+  noTask: {
+    fontSize: 18,
+    paddingVertical: 20,
+    fontWeight: "500",
+  },
   titleList: {
     fontSize: 20,
     fontWeight: "bold",
@@ -145,13 +175,13 @@ const styles = StyleSheet.create({
     color: "#202020",
   },
   button: {
-    width: 50,
-    height: 50,
+    width: 60,
+    height: 60,
     borderRadius: 18,
     backgroundColor: "#FFCC80",
     position: "absolute",
-    bottom: 50,
-    right: 15,
+    top: 30,
+    left: 15,
     shadowColor: "#FFCC80",
     shadowOffset: {
       width: 0,
@@ -164,8 +194,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   icon: {
-    width: 36,
-    height: 36,
+    width: 40,
+    height: 40,
     textAlign: "center",
     textAlignVertical: "center",
   },
