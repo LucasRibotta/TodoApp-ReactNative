@@ -1,10 +1,10 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { AddTodos, HomeScreen } from "./screens";
 import { Provider } from "react-redux";
-import { store } from "./redux/store";
-import UpdateFormComponent from "./components/Form/UpdateForm";
-import { RootStackParamList } from "./models/Route";
+import { store } from "./src/redux/store";
+import UpdateFormComponent from "./src/components/Form/UpdateForm";
+import { RootStackParamList } from "./src/models/Route";
+import { AddTodos, HomeScreen, UpdateTodo } from "./src/screens";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -26,7 +26,7 @@ export default function App() {
           <Stack.Screen
             options={{ presentation: "modal", headerShown: false }}
             name="Update"
-            component={UpdateFormComponent}
+            component={UpdateTodo}
           />
         </Stack.Navigator>
       </NavigationContainer>
