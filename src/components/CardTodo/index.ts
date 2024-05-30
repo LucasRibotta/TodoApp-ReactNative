@@ -1,1 +1,1 @@
-export { default as CardTodo } from "./CardTodo";
+export { default as TodoList } from "./TodoList";

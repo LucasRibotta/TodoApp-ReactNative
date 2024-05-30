@@ -1,6 +1,6 @@
 import { View } from "react-native";
-import { CardTodo } from "./CardTodo";
-import { TodoInfo } from "../models";
+import { CardTodo } from "./components";
+import { TodoInfo } from "../../models";
 
 interface Props {
   todosData: TodoInfo[];

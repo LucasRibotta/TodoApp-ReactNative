@@ -1,11 +1,12 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { TodoInfo, UpdateScreenNavigationProp } from "../../models";
-import { CheckBoxComponent } from "./components";
 import { MaterialIcons } from "@expo/vector-icons";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { deleteTodoReducer } from "../../redux/todosSlice";
+
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
+import { deleteTodoReducer } from "../../../redux/todosSlice";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import CheckBoxComponent from "./CheckBox";
+import { TodoInfo, UpdateScreenNavigationProp } from "../../../models";
 
 function CardTodo({ id, title, description, isCompleted }: TodoInfo) {
   const todos = useAppSelector((state) => state.todos.todos);

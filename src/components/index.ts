@@ -1,3 +1,3 @@
-export { default as TodoList } from "./TodoList";
 export * from "./Form";
 export * from "./Search";
+export { default as HomeComponent } from "./Home";
