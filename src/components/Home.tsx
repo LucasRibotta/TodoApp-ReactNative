@@ -64,17 +64,6 @@ function HomeComponent() {
         <View style={styles.containerTitle}>
           <Text style={styles.title}>Todo App</Text>
         </View>
-
-        {/* 
-        Funcionalidad de filtrado comentada, es un button text que permite filtrar por tareas completadas.
-        Por estetica decidi implementar un filtrado diferente entre tareas completadas y pendientes.
-        <View style={styles.containerFilter}>
-          <TouchableOpacity style={styles.filterButton} onPress={handleCompleted}>
-            <Text style={styles.filter}>
-              {isCompleted ? "Completadas" : "Pendientes"}
-            </Text>
-          </TouchableOpacity>
-        </View> */}
         <View style={{ gap: 12, height: "100%" }}>
           <View style={{ flexDirection: "column", gap: 8 }}>
             <Text style={styles.titleList}>Pending tasks</Text>

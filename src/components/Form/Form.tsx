@@ -1,17 +1,13 @@
-import React, { useEffect, useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-  Platform,
-} from "react-native";
+import React, { useState } from "react";
+import { Text, View, Platform } from "react-native";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { addTodosReducer } from "../../redux/todosSlice";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import { MaterialIcons } from "@expo/vector-icons";
+import { ButtonComponent, ButtonIcon } from "../components/Button";
+import { InputComponent } from "../components";
+import { styles, text } from "../../styles";
 
 function FormComponent() {
   const [name, setName] = useState("");
@@ -47,7 +43,10 @@ function FormComponent() {
 
   return (
     <View
-      style={[styles.container, Platform.OS === "web" && styles.containerWeb]}
+      style={[
+        styles.containerForm,
+        Platform.OS === "web" && styles.containerWeb,
+      ]}
     >
       <View
         style={{
@@ -56,114 +55,42 @@ function FormComponent() {
           gap: 8,
         }}
       >
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <MaterialIcons name="arrow-back" size={24} />
-        </TouchableOpacity>
-        <Text style={styles.title}>Add new task</Text>
+        <ButtonIcon onFunction={() => navigation.goBack()}>
+          <MaterialIcons name="arrow-circle-left" size={32} />
+        </ButtonIcon>
+        <Text style={text.xl}>Add new task</Text>
       </View>
-      <View style={styles.inputContainer}>
-        <Text style={styles.inputTitle}>Title:</Text>
-        <TextInput
-          style={styles.textInput}
-          numberOfLines={2}
-          maxLength={100}
-          placeholder="Add title..."
-          placeholderTextColor="#00000030"
-          onChangeText={(text) => {
-            setName(text);
-          }}
-        />
-      </View>
-      <View style={styles.inputContainer}>
-        <Text style={styles.inputTitle}>Description:</Text>
-        <TextInput
-          editable
-          multiline
-          numberOfLines={4}
-          maxLength={300}
-          placeholder="Add description..."
-          placeholderTextColor="#00000030"
-          onChangeText={(text) => {
-            if (text.length <= 300) {
-              setDescription(text);
-              setDescriptionError("");
-            } else {
-              setDescriptionError("Description cannot exceed 300 characters.");
-            }
-          }}
-          value={description}
-          style={[styles.textInput, { padding: 10 }]}
-        />
-        {descriptionError ? (
-          <Text style={styles.errorText}>{descriptionError}</Text>
-        ) : null}
-      </View>
-      <TouchableOpacity
-        style={[styles.button, Platform.OS === "web" && styles.webButton]}
-        onPress={addTodo}
-      >
+      <InputComponent
+        title="Title"
+        placeholder="Add Title..."
+        placeholderColor="#00000030"
+        onChangeText={(text) => {
+          setName(text);
+        }}
+        value={name}
+      />
+      <InputComponent
+        title="Description"
+        placeholder="Add Description..."
+        placeholderColor="#00000030"
+        onChangeText={(text) => {
+          if (text.length <= 300) {
+            setDescription(text);
+            setDescriptionError("");
+          } else {
+            setDescriptionError("Description cannot exceed 300 characters.");
+          }
+        }}
+        value={description}
+        {...(descriptionError ? (
+          <Text style={text.error}>{descriptionError}</Text>
+        ) : null)}
+      />
+      <ButtonComponent onFunction={addTodo}>
         <Text style={{ color: "white" }}>Crear</Text>
-      </TouchableOpacity>
+      </ButtonComponent>
     </View>
   );
 }
 
 export default FormComponent;
-
-const styles = StyleSheet.create({
-  title: {
-    fontSize: 34,
-    fontWeight: "bold",
-    marginBottom: 35,
-    paddingTop: 50,
-  },
-  textInput: {
-    borderBottomColor: "#00000030",
-    borderBottomWidth: 0.5,
-    width: "100%",
-    height: 50,
-  },
-  container: {
-    maxWidth: 500,
-    width: "100%",
-    height: "100%",
-    flexDirection: "column",
-    backgroundColor: "#F1ECEA30",
-    paddingHorizontal: 30,
-    paddingVertical: 10,
-    margin: "auto",
-  },
-  containerWeb: {
-    maxWidth: 700,
-    paddingHorizontal: 50,
-    paddingVertical: 50,
-    justifyContent: "center",
-  },
-  webButton: {
-    width: "100%",
-  },
-  inputTitle: {
-    fontSize: 25,
-    fontWeight: "600",
-  },
-  inputContainer: {
-    justifyContent: "space-between",
-    flexDirection: "column",
-    paddingVertical: 20,
-    gap: 10,
-  },
-  button: {
-    marginTop: 30,
-    marginBottom: 15,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#000000",
-    height: 46,
-    borderRadius: 11,
-  },
-  errorText: {
-    color: "red",
-    fontSize: 12,
-    marginTop: 5,
-  },
-});
