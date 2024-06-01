@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { updateTodoReducer } from "../../../redux/todosSlice";
 
-function CheckBoxComponent({ id, title, description, isCompleted }: TodoInfo) {
+function CheckBoxComponent({ id, isCompleted }: TodoInfo) {
   const dispatch = useAppDispatch();
   const listTodos = useAppSelector((state) => state.todos.todos);
 

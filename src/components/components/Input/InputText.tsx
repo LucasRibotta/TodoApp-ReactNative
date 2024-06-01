@@ -6,6 +6,8 @@ interface Props {
   placeholder: string;
   placeholderColor: string;
   value: string;
+  numberLine: number;
+  maxCharacter: number;
   onChangeText: (text: string) => void;
   children?: ReactNode;
 }
@@ -15,6 +17,8 @@ function InputComponent({
   placeholder,
   placeholderColor,
   value,
+  numberLine,
+  maxCharacter,
   onChangeText,
   children,
 }: Props) {
@@ -24,8 +28,8 @@ function InputComponent({
       <TextInput
         editable
         multiline
-        numberOfLines={4}
-        maxLength={300}
+        numberOfLines={numberLine}
+        maxLength={maxCharacter}
         placeholder={placeholder}
         placeholderTextColor={placeholderColor}
         onChangeText={onChangeText}

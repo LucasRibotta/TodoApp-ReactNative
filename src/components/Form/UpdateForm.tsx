@@ -78,6 +78,8 @@ function UpdateFormComponent() {
       <InputComponent
         title="Title"
         placeholder="Add Title..."
+        numberLine={2}
+        maxCharacter={100}
         placeholderColor="#00000030"
         onChangeText={(text) => setTitle(text)}
         value={title}
@@ -86,6 +88,8 @@ function UpdateFormComponent() {
       <InputComponent
         title="Description"
         placeholder="Add Description..."
+        numberLine={4}
+        maxCharacter={300}
         placeholderColor="#00000030"
         onChangeText={(text) => {
           if (text.length <= 300) {

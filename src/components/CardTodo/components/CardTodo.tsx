@@ -34,6 +34,7 @@ function CardTodo({ id, title, description, isCompleted }: TodoInfo) {
           title={title}
           description={description}
           isCompleted={isCompleted}
+          color={""}
         />
         <View style={style.textContainer}>
           <Text

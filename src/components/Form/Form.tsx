@@ -6,7 +6,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { ButtonComponent, ButtonIcon } from "../components/Button";
-import { InputComponent } from "../components";
+import { ColorInput, InputComponent } from "../components";
 import { styles, text } from "../../styles";
 
 function FormComponent() {
@@ -63,6 +63,8 @@ function FormComponent() {
       <InputComponent
         title="Title"
         placeholder="Add Title..."
+        numberLine={2}
+        maxCharacter={100}
         placeholderColor="#00000030"
         onChangeText={(text) => {
           setName(text);
@@ -72,6 +74,8 @@ function FormComponent() {
       <InputComponent
         title="Description"
         placeholder="Add Description..."
+        numberLine={4}
+        maxCharacter={300}
         placeholderColor="#00000030"
         onChangeText={(text) => {
           if (text.length <= 300) {
@@ -86,6 +90,9 @@ function FormComponent() {
           <Text style={text.error}>{descriptionError}</Text>
         ) : null)}
       />
+      <View style={{ width: "50%" }}>
+        <ColorInput />
+      </View>
       <ButtonComponent onFunction={addTodo}>
         <Text style={{ color: "white" }}>Crear</Text>
       </ButtonComponent>
